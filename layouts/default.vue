@@ -102,12 +102,17 @@ export default {
           to: '/'
         },
         {
+          icon: 'mdi-apps',
+          title: 'Welcome',
+          to: '/welcome'
+        },
+        {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
           to: '/inspire'
         }
       ],
-      miniVariant: false,
+      miniVariant: true,
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'
