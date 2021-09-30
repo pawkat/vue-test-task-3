@@ -1,7 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <h1 class="text-center">Movies</h1>
       <h2 class="text-center">Search the movies</h2>
       <v-text-field
           label="Search the movies"
