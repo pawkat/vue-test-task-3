@@ -1,27 +1,37 @@
 export const state = () => ({
     movies: [],
-    genres: {
-        '0': {
+    genres: [
+        {
             label: 'Action',
+            active: false,
+            id: 0
         },
-        '1': {
+        {
             label: 'Adventures',
+            active: false,
+            id: 1
         },
-        '2': {
+        {
             label: 'Comedy',
+            active: false,
+            id: 2
         },
-        '3': {
+        {
             label: 'Drama',
+            active: false,
+            id: 3
         },
-        '4': {
+        {
             label: 'Horror',
+            active: false,
+            id: 4
         },
-        '5': {
+        {
             label: 'Westerns',
+            active: false,
+            id: 5
         },
-    },
-    activeGenre: '',
-    searchQuery: '',
+    ],
 })
 
 export const mutations = {
@@ -29,23 +39,13 @@ export const mutations = {
         state.movies = movies
     },
     SET_ACTIVE_GENRE(state, id) {
-        state.activeGenre = state.activeGenre === id ? '' : id
+        state.genres[id].active = !state.genres[id].active
     },
-    SET_SEARCH_QUERY(state, query) {
-        state.searchQuery = query
-    }
 }
 
 export const actions = {
     GET_MOVIES_FROM_API({commit, dispatch}) {
-        let search = ''
-        if (this.state.movies.activeGenre) {
-            search += `?genres=${this.state.movies.activeGenre}`
-        }
-        if (this.state.movies.searchQuery) {
-            search += search ? `&name=${this.state.movies.searchQuery}` : `?name=${this.state.movies.searchQuery}`
-        }
-        return this.$axios.$get('/api/movies' + search)
+        return this.$axios.$get('/api/movies')
             .then((response) => {
                 if (response.error_code === 0 && Array.isArray(response.data)) {
                     commit('SET_MOVIES_TO_STATE', response.data)
@@ -59,11 +59,6 @@ export const actions = {
     },
     TOGGLE_GENRE({commit, dispatch}, id) {
         commit('SET_ACTIVE_GENRE', id)
-        dispatch('GET_MOVIES_FROM_API')
-    },
-    UPDATE_SEARCH_QUERY({commit, dispatch}, query) {
-        commit('SET_SEARCH_QUERY', query)
-        dispatch('GET_MOVIES_FROM_API')
     },
 }
 
@@ -73,11 +68,5 @@ export const getters = {
     },
     GENRES(state) {
         return state.genres
-    },
-    ACTIVE_GENRE(state) {
-        return state.activeGenre
-    },
-    SEARCH_QUERY(state) {
-        return state.searchQuery
-    },
+    }
 }

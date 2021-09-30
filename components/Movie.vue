@@ -89,8 +89,8 @@ export default {
       required: false
     },
     genres: {
-      type: Object,
-      default: {},
+      type: Array,
+      default: [],
       required: false
     }
   },
@@ -103,8 +103,9 @@ export default {
   },
   methods: {
     getGenre: function () {
-      if (this.genres.hasOwnProperty(this.movie.genre)) {
-        return this.genres[this.movie.genre].label
+      let genre = this.genres.filter(genre => genre.id === this.movie.genre).shift()
+      if (genre) {
+        return genre.label
       }
       return ''
     },
