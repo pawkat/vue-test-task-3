@@ -45,12 +45,16 @@ export default {
   props: {
     places: {
       type: Array,
-      default: [],
+      default: function () {
+        return []
+      },
       required: true
     },
     movie: {
       type: Object,
-      default: {},
+      default: function () {
+        return {}
+      },
       required: true
     },
     selectedDaytime: {
@@ -117,5 +121,15 @@ export default {
       flex-grow: 1;
     }
   }
+}
+</style>
+
+
+<style lang="scss">
+.center-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

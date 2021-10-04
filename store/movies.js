@@ -57,6 +57,30 @@ export const actions = {
                 return error
             })
     },
+    GET_MOVIE_FROM_API({commit, dispatch}, id) {
+        return this.$axios.$get(`/api/movies/?movie_id=${id}`)
+            .then((response) => {
+                if (response.error_code === 0 && Array.isArray(response.data) && response.data.length === 1) {
+                    return response.data.shift()
+                }
+                return response
+            })
+            .catch((error) => {
+                console.log(error)
+                return error
+            })
+    },
+    GET_SESSIONS_FROM_API({commit, dispatch}, id) {
+        return this.$axios.$get(`/api/movieShows?movie_id=${id}`)
+            .then((response) => {
+                if (response.error_code === 0 && response.data && response.data[id]) {
+                    return response.data[id]
+                }
+            })
+            .catch((error) => {
+                alert(error)
+            })
+    },
     TOGGLE_GENRE({commit, dispatch}, id) {
         commit('SET_ACTIVE_GENRE', id)
     },

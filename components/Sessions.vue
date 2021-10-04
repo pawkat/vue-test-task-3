@@ -1,7 +1,7 @@
 <template>
   <div class="sessions" :class="classList">
     <h3 class="text-center">{{ daySessions.showdate }}</h3>
-    <div class="sessions__content">
+    <div class="sessions__content text-center">
       <v-btn
           v-for="daytime in getTimesArray"
           :key="daytime"
@@ -45,12 +45,16 @@ export default {
   props: {
     daySessions: {
       type: Object,
-      default: {},
+      default: function () {
+        return {}
+      },
       required: false
     },
     movie: {
       type: Object,
-      default: {},
+      default: function () {
+        return {}
+      },
       required: true
     },
     classList: {
